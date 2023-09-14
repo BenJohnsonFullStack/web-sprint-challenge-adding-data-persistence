@@ -7,6 +7,15 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   const newResource = req.body;
   try {
+    const resources = await Resource.getAll();
+    resources.forEach((element) => {
+      if (element.resource_name === newResource.resource_name) {
+        next({
+          status: 422,
+          message: "A resource with this name already exists",
+        });
+      }
+    });
     const resource = await Resource.insert(newResource);
     res.status(201).json(resource);
   } catch (err) {

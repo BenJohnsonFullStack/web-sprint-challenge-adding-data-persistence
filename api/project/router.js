@@ -7,8 +7,12 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   const newProject = req.body;
   try {
-    const project = await Project.insert(newProject);
-    res.status(201).json(project);
+    if (!newProject.project_name) {
+      next({ status: 422, message: "Project name required" });
+    } else {
+      const project = await Project.insert(newProject);
+      res.status(201).json(project);
+    }
   } catch (err) {
     next(err);
   }

@@ -5,8 +5,12 @@ const getById = (id) => {
   return db("tasks").where("task_id", id);
 };
 
-const getAll = () => {
-  return db("tasks");
+const getAll = async () => {
+  const tasks = await db("tasks");
+  tasks.forEach((task) => {
+    task.task_completed = task.task_completed === 0 ? false : true;
+  });
+  return tasks;
 };
 
 const insert = async (task) => {

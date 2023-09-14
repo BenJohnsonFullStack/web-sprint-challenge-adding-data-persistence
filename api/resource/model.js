@@ -15,6 +15,7 @@ const insert = async (resource) => {
 };
 
 module.exports = {
+  getById,
   getAll,
   insert,
 };
