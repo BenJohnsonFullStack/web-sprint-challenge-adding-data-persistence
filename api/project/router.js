@@ -8,7 +8,7 @@ router.post("/", async (req, res, next) => {
   const newProject = req.body;
   try {
     if (!newProject.project_name) {
-      next({ status: 422, message: "Project name required" });
+      res.status(422).json("Project name required");
     } else {
       const project = await Project.insert(newProject);
       res.status(201).json(project);

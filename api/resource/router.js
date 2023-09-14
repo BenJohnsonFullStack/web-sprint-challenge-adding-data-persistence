@@ -10,14 +10,11 @@ router.post("/", async (req, res, next) => {
     const resources = await Resource.getAll();
     resources.forEach((element) => {
       if (element.resource_name === newResource.resource_name) {
-        next({
-          status: 422,
-          message: "A resource with this name already exists",
-        });
+        res.status(422).json("A resource with this name already exists");
       }
     });
     const resource = await Resource.insert(newResource);
-    res.status(201).json(resource);
+    res.json(resource);
   } catch (err) {
     next(err);
   }
