@@ -15,6 +15,15 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.get("/", async (req, res, next) => {
+  try {
+    const projects = await Project.getAll();
+    res.json(projects);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   res.json({

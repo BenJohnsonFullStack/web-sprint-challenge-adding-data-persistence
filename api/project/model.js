@@ -5,6 +5,10 @@ const getById = (id) => {
   return db("projects").where("project_id", id);
 };
 
+const getAll = () => {
+  return db("projects");
+};
+
 const insert = async (project) => {
   const [id] = await db("projects").insert(project);
   return getById(id).first();
@@ -12,4 +16,5 @@ const insert = async (project) => {
 
 module.exports = {
   insert,
+  getAll,
 };
