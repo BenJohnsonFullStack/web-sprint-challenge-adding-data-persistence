@@ -4,10 +4,6 @@ const Resource = require("./model");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json("Hello from resources");
-});
-
 router.post("/", async (req, res, next) => {
   const { resource_id } = req.params;
   const { resource_name, resource_description } = req.body;
@@ -21,11 +17,15 @@ router.post("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  const resource = await resource.insert({
-    resource_id,
-    resource_name,
-    resource_description,
-  });
+});
+
+router.get("/", async (req, res, next) => {
+  try {
+    const resources = await Resource.getAll();
+    res.json(resources);
+  } catch (err) {
+    next(err);
+  }
 });
 
 // eslint-disable-next-line no-unused-vars
