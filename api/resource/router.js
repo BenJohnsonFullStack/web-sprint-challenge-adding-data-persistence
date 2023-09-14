@@ -5,15 +5,10 @@ const Resource = require("./model");
 const router = express.Router();
 
 router.post("/", async (req, res, next) => {
-  const { resource_id } = req.params;
-  const { resource_name, resource_description } = req.body;
+  const newResource = req.body;
   try {
-    const result = await Resource.insert({
-      resource_id,
-      resource_name,
-      resource_description,
-    });
-    res.status(201).json(result);
+    const resource = await Resource.insert(newResource);
+    res.status(201).json(resource);
   } catch (err) {
     next(err);
   }
