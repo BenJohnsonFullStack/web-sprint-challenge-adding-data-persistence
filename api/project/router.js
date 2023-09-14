@@ -7,7 +7,6 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   const newProject = req.body;
   try {
-    console.log(req.body);
     const project = await Project.insert(newProject);
     res.status(201).json(project);
   } catch (err) {
